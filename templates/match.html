@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Text Input App</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Rock Paper Scissors</h2>
+        <div class="row justify-content-center">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h1>Match {{ match["id"] }}</h1>
+
+                        <h2 style="color: {{ side }}">{{ side|title }}</h2>
+
+                        {% if match[side + "_move"] %}
+                        
+                        <p>Move: {{ match[side + "_move"] }}</p>
+
+                        {% else %}
+
+                        <form action="/match/submit" method="post">
+                            <input name="side" type="hidden" value="{{ side }}">
+                            <input name="id" type="hidden" value="{{ match['id'] }}">
+
+                            <div class="form-group">
+                                <!-- Radio of rock paper scissors -->
+                                <input type="radio" id="rock" name="move" value="rock">
+                                <label for="rock">Rock</label><br>
+                                <input type="radio" id="paper" name="move" value="paper">
+                                <label for="paper">Paper</label><br>
+                                <input type="radio" id="scissors" name="move" value="scissors">
+                                <label for="scissors">Scissors</label><br>
+                            </div>
+                            <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                        </form>
+
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h4>Submitted Text:</h4>
+                    <p>{{ user_input }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
