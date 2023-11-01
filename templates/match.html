@@ -16,16 +16,31 @@
 
                         <h2 style="color: {{ side }}">{{ side|title }}</h2>
 
-                        <p>Score is {{ match["red_score"] }} for red and {{ match["blue_score"] }} for blue</p>
+                        <p id="score">Score: {{ match["red_score"] }} - {{ match["blue_score"] }}</p>
 
                         {% if match[side + "_move"] %}
                         
                         <p>Move: {{ match[side + "_move"] }}</p>
 
                         <script>
-                            setTimeout(function() {
-                                window.location.href = "/match/{{ match['id'] }}?side={{ side }}";
-                            }, 2000)
+                           // setTimeout(function() {
+                            //    window.location.href = "/match/{{ match['id'] }}?side={{ side }}";
+                        //    }, 2000)
+                        let red = parseInt({{ match["red_score"] }})
+                        let blue = parseInt({{ match["blue_score"] }})
+
+                        let str = red.toString() + " - " + blue.toString()
+
+                        if(red > blue) {
+                            str += " red up!"
+                        } else if(red < blue) {
+                            str += " blue up!"
+                        } else if(red === blue) {
+                            str += " tied :0"
+                        }
+
+                        document.getElementById("score") = str;
+
                         </script>
 
                         {% else %}
@@ -43,7 +58,7 @@
                                 <input type="radio" id="scissors" name="move" value="scissors">
                                 <label for="scissors">Scissors</label><br>
                             </div>
-                            <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                            <input type="submit" name="submit" value="Shoot!" class="btn btn-primary">
                         </form>
 
                         {% endif %}
