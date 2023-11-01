@@ -22,7 +22,18 @@ def create_match():
         'blue_move': None,
     })
 
-    return str(len(matches))
+    return render_template("match.html", match=matches[-1], side='red')
+
+@app.route('/match/join')
+def join_match():
+    match_id = request.args.get('id')
+    if not match_id:
+        abort(404)
+
+    match = matches[int(match_id) - 1]
+
+    return render_template("match.html", match=match, side='blue')
+
 
 @app.route('/match/<match_id>')
 def get_match_data(match_id):

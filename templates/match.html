@@ -16,9 +16,17 @@
 
                         <h2 style="color: {{ side }}">{{ side|title }}</h2>
 
+                        <p>Score is {{ match["red_score"] }} for red and {{ match["blue_score"] }} for blue</p>
+
                         {% if match[side + "_move"] %}
                         
                         <p>Move: {{ match[side + "_move"] }}</p>
+
+                        <script>
+                            setTimeout(function() {
+                                window.location.href = "/match/{{ match['id'] }}?side={{ side }}";
+                            }, 2000)
+                        </script>
 
                         {% else %}
 
@@ -40,10 +48,6 @@
 
                         {% endif %}
                     </div>
-                </div>
-                <div class="mt-4">
-                    <h4>Submitted Text:</h4>
-                    <p>{{ user_input }}</p>
                 </div>
             </div>
         </div>
